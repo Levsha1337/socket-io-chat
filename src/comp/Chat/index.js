@@ -9,7 +9,7 @@ import Message from '../Message';
 class Chat extends Component {
     constructor(props) {
         super(props);
-        
+
         this.state = {
             messages: [],
             users: []
@@ -22,7 +22,7 @@ class Chat extends Component {
         this.onKeyDown = this.onKeyDown.bind(this);
         this.setAsyncState = this.setAsyncState.bind(this);
         this.initChatConnection = this.initChatConnection.bind(this);
-        
+
         this.room = props.room;
     }
 
@@ -56,7 +56,7 @@ class Chat extends Component {
         });
 
         this.socket.on('room', (room) => {
-            history.replaceState(null, `Chat - room ${room}`, `/?${new URLSearchParams({room, login}).toString()}`);
+            history.replaceState(null, `Chat - room ${room}`, `/?${new URLSearchParams({ room, login }).toString()}`);
             this.room = room;
         });
 
@@ -105,14 +105,26 @@ class Chat extends Component {
     copyLink(e) {
         const btn = e.target;
         const link = document.location.origin + '/?room=' + this.room;
-        navigator.clipboard.writeText(link).then(() => {
-            btn.innerText = 'Done!';
-        }).catch(() => {
-            btn.innerText = 'Error :(';
-        }).finally(() => {
+
+        function btnSetText(text) {
+            btn.innerText = text;
+
             setTimeout(() => {
                 btn.innerText = 'Copy link';
             }, 5000);
+        }
+
+        if (navigator.clipboard === undefined) {
+            alert('Sorry, i can\'t do it when connection insecure! You need to use HTTPS or connects via localhost.');
+            btnSetText('Error :(');
+
+            return;
+        }
+
+        navigator.clipboard.writeText(link).then(() => {
+            btnSetText('Done!');
+        }).catch(() => {
+            btnSetText('Error :(');
         });
     }
 
@@ -122,19 +134,19 @@ class Chat extends Component {
                 <div className='chat-menu'>
                     <div className='userlist'>
                         {this.state.users && this.state.users.map(user =>
-                            <div key={user} className='user'>{user}</div>   
+                            <div key={user} className='user'>{user}</div>
                         )}
                     </div>
                     <div onClick={this.copyLink} className='copy-link-button'>Copy link</div>
                 </div>
                 <div className='chat-texting'>
                     <div className='messages' ref={this.messagesBox}>
-                        { this.state.messages && this.state.messages.map(m => 
+                        {this.state.messages && this.state.messages.map(m =>
                             <Message key={m.time} {...m} />
                         )}
                     </div>
                     <div className='input-box'>
-                        <textarea ref={this.inputBox} placeholder='Input your message'/>
+                        <textarea ref={this.inputBox} placeholder='Input your message' />
                     </div>
                 </div>
             </div>
