@@ -1,0 +1,92 @@
+#root .chat {
+    width: 100%;
+    height: 100%;
+
+    display: flex;
+    flex-direction: row;
+    .chat-menu {
+        width: 150px;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+
+        .userlist {
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-start;
+            align-items: flex-start;
+            padding: 4px;
+
+            .user {
+                padding: 4px;
+                color: gold;
+            }
+        }
+
+        .copy-link-button {
+            align-self: center;
+            margin-bottom: 16px;
+            padding: 8px;
+            border-radius: 4px;
+            background-color: #262e39;
+            cursor: pointer;
+            
+            text-align: center;
+            
+            &:hover {
+                background-color: gold;
+                transition: 0.2s;
+            }
+        }
+    }
+        
+    .chat-texting {
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        align-items: flex-start;
+        width: 100%;
+        height: 100%;
+
+        .messages {
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-start;
+            align-items: flex-start;
+            overflow-y: scroll;
+            width: 100%;
+            height: 100%;
+        }
+    
+        .input-box {
+            height: 50px;
+            width: 100%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            
+            textarea {
+                width: 100%;
+                height: 100%;
+                
+                margin: 0;
+                padding-left: 16px;
+                padding-top: 8px;
+
+                font-size: 14px;
+
+                box-sizing: border-box;
+                border: none;
+
+                overflow-x: hidden;
+                overflow-y: auto;
+
+                outline: none;
+                resize: none;
+
+                background-color: #262e39;
+                color: white;
+            }
+        }
+    }
+}

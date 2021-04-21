@@ -1,0 +1,20 @@
+.chat .messages .message-box {
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    align-items: center;
+    padding: 4px;
+
+    .message-text {
+        color: white;
+    }
+
+    .time {
+        color: gray;
+        margin-right: 8px;
+    }
+
+    .alert {
+        color: gold;
+    }
+}
